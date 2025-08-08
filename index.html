@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Vibes - Modern Weather Experience</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --glass-bg: rgba(255, 255, 255, 0.1);
+            --glass-border: rgba(255, 255, 255, 0.2);
+            --text-primary: #ffffff;
+            --text-secondary: rgba(255, 255, 255, 0.8);
+            --accent-color: #00d4ff;
+            --shadow-light: rgba(255, 255, 255, 0.1);
+            --shadow-dark: rgba(0, 0, 0, 0.2);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            height: 100vh;
+            overflow: hidden;
+            background: var(--primary-gradient);
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Modern animated background */
+        .background-animation {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        /* Geometric shapes animation */
+        .geometric-shape {
+            position: absolute;
+            border-radius: 50%;
+            background: linear-gradient(45deg, rgba(255, 255, 255, 0.1), rgba(0, 212, 255, 0.1));
+            animation: float-geometric 20s ease-in-out infinite;
+        }
+
+        .shape-1 {
+            width: 200px;
+            height: 200px;
+            top: 10%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .shape-2 {
+            width: 150px;
+            height: 150px;
+            top: 60%;
+            right: 15%;
+            animation-delay: 7s;
+        }
+
+        .shape-3 {
+            width: 100px;
+            height: 100px;
+            bottom: 20%;
+            left: 20%;
+            animation-delay: 14s;
+        }
+
+        @keyframes float-geometric {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg) scale(1);
+                opacity: 0.3;
+            }
+            33% {
+                transform: translateY(-30px) rotate(120deg) scale(1.1);
+                opacity: 0.6;
+            }
+            66% {
+                transform: translateY(20px) rotate(240deg) scale(0.9);
+                opacity: 0.4;
+            }
+        }
+
+        /* Data visualization lines */
+        .data-lines {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .data-line {
+            position: absolute;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--accent-color), transparent);
+            animation: data-flow 8s linear infinite;
+        }
+
+        .line-1 {
+            top: 25%;
+            width: 300px;
+            left: -300px;
+            animation-delay: 0s;
+        }
+
+        .line-2 {
+            top: 50%;
+            width: 250px;
+            right: -250px;
+            animation-delay: 3s;
+            animation-direction: reverse;
+        }
+
+        .line-3 {
+            top: 75%;
+            width: 200px;
+            left: -200px;
+            animation-delay: 6s;
+        }
+
+        @keyframes data-flow {
+            0% {
+                transform: translateX(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateX(calc(100vw + 300px));
+                opacity: 0;
+            }
+        }
+
+        /* Weather pattern animation */
+        .weather-pattern {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 50%;
+            animation: weather-drop 12s linear infinite;
+        }
+
+        @keyframes weather-drop {
+            0% {
+                transform: translateY(-100px);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(calc(100vh + 100px));
+                opacity: 0;
+            }
+        }
+
+        /* Main container with glassmorphism */
+        .main-container {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 60px 50px;
+            text-align: center;
+            box-shadow: 
+                0 8px 32px rgba(0, 0, 0, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            position: relative;
+            z-index: 10;
+            max-width: 500px;
+            width: 90%;
+            animation: container-entrance 1s ease-out;
+        }
+
+        @keyframes container-entrance {
+            0% {
+                opacity: 0;
+                transform: translateY(30px) scale(0.95);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        /* Typography */
+        .brand-title {
+            font-size: 3.2rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.02em;
+            background: linear-gradient(135deg, #ffffff, #00d4ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: title-shimmer 3s ease-in-out infinite;
+        }
+
+        @keyframes title-shimmer {
+            0%, 100% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+        }
+
+        .brand-subtitle {
+            font-size: 1.1rem;
+            font-weight: 400;
+            color: var(--text-secondary);
+            margin-bottom: 3rem;
+            line-height: 1.6;
+        }
+
+        /* Modern button design */
+        .cta-button {
+            background: linear-gradient(135deg, #00d4ff, #0099cc);
+            border: none;
+            border-radius: 16px;
+            padding: 18px 40px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            font-family: 'Inter', sans-serif;
+            color: white;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 
+                0 4px 20px rgba(0, 212, 255, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 
+                0 8px 30px rgba(0, 212, 255, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3);
+        }
+
+        .cta-button:hover::before {
+            left: 100%;
+        }
+
+        .cta-button:active {
+            transform: translateY(0);
+        }
+
+        /* Loading state */
+        .cta-button.loading {
+            background: linear-gradient(135deg, #666, #888);
+            cursor: not-allowed;
+        }
+
+        .cta-button.loading::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 20px;
+            height: 20px;
+            margin: -10px 0 0 -10px;
+            border: 2px solid transparent;
+            border-top: 2px solid white;
+            border-radius: 50%;
+            animation: button-loading 1s linear infinite;
+        }
+
+        @keyframes button-loading {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Feature indicators */
+        .feature-indicators {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .feature-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            opacity: 0.7;
+            transition: opacity 0.3s ease;
+        }
+
+        .feature-item:hover {
+            opacity: 1;
+        }
+
+        .feature-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            animation: feature-pulse 4s ease-in-out infinite;
+        }
+
+        .feature-item:nth-child(2) .feature-icon {
+            animation-delay: 1.3s;
+        }
+
+        .feature-item:nth-child(3) .feature-icon {
+            animation-delay: 2.6s;
+        }
+
+        @keyframes feature-pulse {
+            0%, 100% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(0, 212, 255, 0.4);
+            }
+            50% {
+                transform: scale(1.05);
+                box-shadow: 0 0 0 10px rgba(0, 212, 255, 0);
+            }
+        }
+
+        .feature-label {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        /* Status indicator */
+        .status-indicator {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background: #00ff88;
+            border-radius: 50%;
+            animation: status-blink 2s ease-in-out infinite;
+        }
+
+        @keyframes status-blink {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.3;
+            }
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .main-container {
+                padding: 40px 30px;
+                margin: 20px;
+            }
+
+            .brand-title {
+                font-size: 2.5rem;
+            }
+
+            .brand-subtitle {
+                font-size: 1rem;
+                margin-bottom: 2rem;
+            }
+
+            .cta-button {
+                padding: 16px 32px;
+                font-size: 1rem;
+            }
+
+            .feature-indicators {
+                gap: 20px;
+                margin-top: 30px;
+            }
+
+            .feature-icon {
+                width: 35px;
+                height: 35px;
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .brand-title {
+                font-size: 2rem;
+            }
+
+            .feature-indicators {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .feature-item {
+                flex-direction: row;
+                gap: 12px;
+            }
+        }
+
+        /* Accessibility improvements */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        /* Focus styles */
+        .cta-button:focus {
+            outline: 2px solid var(--accent-color);
+            outline-offset: 2px;
+        }
+    </style>
+</head>
+<body>
+     
+    <div class="background-animation">
+        
+        <div class="geometric-shape shape-1"></div>
+        <div class="geometric-shape shape-2"></div>
+        <div class="geometric-shape shape-3"></div>
+        
+         
+        <div class="data-lines">
+            <div class="data-line line-1"></div>
+            <div class="data-line line-2"></div>
+            <div class="data-line line-3"></div>
+        </div>
+        
+        
+        <div class="weather-patterns" id="weatherPatterns"></div>
+    </div>
+
+  
+    <div class="main-container">
+        <div class="status-indicator">
+            <div class="status-dot"></div>
+            <span>Live Data</span>
+        </div>
+        
+        <h1 class="brand-title">Weather Vibes</h1>
+        <p class="brand-subtitle">
+            Experience weather data like never before with real-time insights and beautiful visualizations
+        </p>
+        
+        <button class="cta-button" id="weatherButton" onclick="initiateWeatherFetch()">
+            <span id="buttonText">Explore Weather</span>
+        </button>
+        
+        <div class="feature-indicators">
+            <div class="feature-item">
+                <div class="feature-icon">🌡️</div>
+                <span class="feature-label">Real-time</span>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon">📊</div>
+                <span class="feature-label">Analytics</span>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon">🎯</div>
+                <span class="feature-label">Precise</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Create weather pattern drops
+        function createWeatherPatterns() {
+            const container = document.getElementById('weatherPatterns');
+            const patternCount = 30;
+            
+            for (let i = 0; i < patternCount; i++) {
+                const pattern = document.createElement('div');
+                pattern.className = 'weather-pattern';
+                pattern.style.left = Math.random() * 100 + '%';
+                pattern.style.animationDelay = Math.random() * 12 + 's';
+                pattern.style.animationDuration = (Math.random() * 8 + 8) + 's';
+                container.appendChild(pattern);
+            }
+        }
+
+        // Enhanced button interaction
+        function initiateWeatherFetch() {
+            const button = document.getElementById('weatherButton');
+            const buttonText = document.getElementById('buttonText');
+            
+            // Add loading state
+            button.classList.add('loading');
+            button.disabled = true;
+            buttonText.textContent = '';
+            
+            // Simulate data processing
+            setTimeout(() => {
+                buttonText.textContent = 'Processing...';
+            }, 500);
+            
+            setTimeout(() => {
+                buttonText.textContent = 'Analyzing...';
+            }, 1500);
+            
+            setTimeout(() => {
+                // Navigate to weather page
+                window.location.href = 'weather.html';
+            }, 2500);
+        }
+
+        // Interactive background response
+        function handleMouseMove(e) {
+            const shapes = document.querySelectorAll('.geometric-shape');
+            const mouseX = e.clientX / window.innerWidth;
+            const mouseY = e.clientY / window.innerHeight;
+            
+            shapes.forEach((shape, index) => {
+                const speed = (index + 1) * 0.5;
+                const x = (mouseX - 0.5) * speed * 20;
+                const y = (mouseY - 0.5) * speed * 20;
+                
+                shape.style.transform = `translate(${x}px, ${y}px) rotate(${x * 0.5}deg)`;
+            });
+        }
+
+        // Parallax effect for data lines
+        function handleScroll() {
+            const scrolled = window.pageYOffset;
+            const dataLines = document.querySelectorAll('.data-line');
+            
+            dataLines.forEach((line, index) => {
+                const speed = (index + 1) * 0.3;
+                line.style.transform = `translateX(${scrolled * speed}px)`;
+            });
+        }
+
+        // Performance-optimized event listeners
+        let ticking = false;
+        
+        function requestTick(callback) {
+            if (!ticking) {
+                requestAnimationFrame(callback);
+                ticking = true;
+            }
+        }
+
+        // Initialize everything
+        document.addEventListener('DOMContentLoaded', () => {
+            createWeatherPatterns();
+            
+            // Add optimized mouse tracking
+            document.addEventListener('mousemove', (e) => {
+                requestTick(() => {
+                    handleMouseMove(e);
+                    ticking = false;
+                });
+            });
+            
+            // Keyboard accessibility
+            document.getElementById('weatherButton').addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    initiateWeatherFetch();
+                }
+            });
+            
+            // Add entrance animation delay for features
+            const features = document.querySelectorAll('.feature-item');
+            features.forEach((feature, index) => {
+                feature.style.animationDelay = `${0.5 + index * 0.2}s`;
+                feature.style.animation = 'container-entrance 0.8s ease-out forwards';
+                feature.style.opacity = '0';
+            });
+        });
+
+        // Add CSS for feature entrance animation
+        const additionalStyles = document.createElement('style');
+        additionalStyles.textContent = `
+            .feature-item {
+                opacity: 0;
+            }
+        `;
+        document.head.appendChild(additionalStyles);
+
+        // Cleanup function for performance
+        window.addEventListener('beforeunload', () => {
+            document.removeEventListener('mousemove', handleMouseMove);
+            document.removeEventListener('scroll', handleScroll);
+        });
+    </script>
+</body>
+</html>
